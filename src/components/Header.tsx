@@ -2,12 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { AlertTriangle } from "lucide-react";
 import { useAlertCount } from "@/hooks/useInventory";
 
-const links = [
+const links: { to: "/" | "/produtos" | "/movimentacoes" | "/cadastrar"; label: string; exact?: boolean }[] = [
   { to: "/", label: "Dashboard", exact: true },
   { to: "/produtos", label: "Produtos" },
   { to: "/movimentacoes", label: "Movimentações" },
   { to: "/cadastrar", label: "Cadastrar" },
-] as const;
+];
 
 export function Header() {
   const alerts = useAlertCount();
