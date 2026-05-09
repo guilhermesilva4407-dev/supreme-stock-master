@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProdutosRouteImport } from './routes/produtos'
+import { Route as MovimentacoesRouteImport } from './routes/movimentacoes'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ProdutosRoute = ProdutosRouteImport.update({
   id: '/produtos',
   path: '/produtos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MovimentacoesRoute = MovimentacoesRouteImport.update({
+  id: '/movimentacoes',
+  path: '/movimentacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/movimentacoes': typeof MovimentacoesRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/movimentacoes': typeof MovimentacoesRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/movimentacoes': typeof MovimentacoesRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/produtos'
+  fullPaths: '/' | '/movimentacoes' | '/produtos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/produtos'
-  id: '__root__' | '/' | '/produtos'
+  to: '/' | '/movimentacoes' | '/produtos'
+  id: '__root__' | '/' | '/movimentacoes' | '/produtos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MovimentacoesRoute: typeof MovimentacoesRoute
   ProdutosRoute: typeof ProdutosRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/produtos'
       fullPath: '/produtos'
       preLoaderRoute: typeof ProdutosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/movimentacoes': {
+      id: '/movimentacoes'
+      path: '/movimentacoes'
+      fullPath: '/movimentacoes'
+      preLoaderRoute: typeof MovimentacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MovimentacoesRoute: MovimentacoesRoute,
   ProdutosRoute: ProdutosRoute,
 }
 export const routeTree = rootRouteImport
