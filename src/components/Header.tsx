@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { AlertTriangle } from "lucide-react";
 import { useAlertCount } from "@/hooks/useInventory";
+import logo from "@/assets/logo.png";
 
 const links: { to: "/" | "/produtos" | "/movimentacoes" | "/cadastrar"; label: string; exact?: boolean }[] = [
   { to: "/", label: "Dashboard", exact: true },
@@ -14,13 +15,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link to="/" className="flex items-baseline gap-2">
-          <span className="font-display text-2xl tracking-wider text-foreground md:text-3xl">
-            SUPREME
-          </span>
-          <span className="font-display text-2xl tracking-wider text-primary md:text-3xl">
-            MULTIMARCAS
-          </span>
+        <Link to="/" className="flex items-center gap-3">
+          <img src={logo} alt="Supreme Multimarcas" className="h-10 w-auto md:h-12" />
+          <span className="sr-only">Supreme Multimarcas</span>
         </Link>
         <nav className="hidden gap-1 md:flex">
           {links.map((l) => (
