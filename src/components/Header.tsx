@@ -16,7 +16,9 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="Supreme Multimarcas" className="h-10 w-auto md:h-12" />
+          <div className="flex h-10 w-10 items-center justify-center md:h-12 md:w-12">
+            <img src={logo} alt="Supreme Multimarcas" className="h-full w-full object-contain" />
+          </div>
           <span className="sr-only">Supreme Multimarcas</span>
         </Link>
         <nav className="hidden gap-1 md:flex">
