@@ -103,21 +103,23 @@
   }
 }
 
-@utility hud-card {
-  position: relative;
-  background-color: var(--card);
-  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-
-@utility hud-corner {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-top: 1px solid var(--primary-glow, oklch(0.88 0.13 85));
-  border-left: 1px solid var(--primary-glow, oklch(0.88 0.13 85));
+@layer components {
+  .hud-card {
+    position: relative;
+    background-color: var(--card);
+    border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  .hud-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-top: 1px solid oklch(0.88 0.13 85);
+    border-left: 1px solid oklch(0.88 0.13 85);
+    pointer-events: none;
+  }
 }
