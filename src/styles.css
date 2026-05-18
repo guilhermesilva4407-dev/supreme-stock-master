@@ -90,10 +90,34 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    background-image:
+      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--primary) 25%, transparent) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 0% 0%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 60%);
+    background-size: 28px 28px, 100% 100%;
+    background-attachment: fixed;
   }
 
   h1, h2, h3, .font-display {
     font-family: var(--font-display);
     letter-spacing: 0.02em;
   }
+}
+
+@utility hud-card {
+  position: relative;
+  background-color: var(--card);
+  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+@utility hud-corner {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 1px solid var(--primary-glow, oklch(0.88 0.13 85));
+  border-left: 1px solid var(--primary-glow, oklch(0.88 0.13 85));
 }
