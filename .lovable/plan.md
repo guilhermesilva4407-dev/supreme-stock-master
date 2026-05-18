@@ -1,49 +1,33 @@
-## Backup e Restauração de Dados
+## Objetivo
+Melhorar a aba **Produtos** para encontrar itens mais rápido, adicionando ordenação e destaque de alertas. Os filtros por categoria e marca já existem hoje em `src/components/Filters.tsx` — vou mantê-los e complementar.
 
-Adicionar exportação/importação dos dados do localStorage como arquivo JSON, para facilitar migração entre celulares.
+## O que vou fazer
 
-### Onde
-Nova seção "Backup" dentro da rota **Cadastrar** (ou aba dedicada se preferir), com dois botões grandes mobile-friendly: **Exportar backup** e **Restaurar backup**.
+1. **Ordenação na listagem** (`src/routes/produtos.tsx` + `src/components/Filters.tsx`)
+   - Novo seletor "Ordenar por" com opções:
+     - Alertas primeiro (zerado → baixo → ok), depois nome
+     - Menor estoque
+     - Maior estoque
+     - Nome (A–Z)
+     - Mais recentes
+   - Padrão: **Alertas primeiro**, para que rupturas apareçam no topo.
 
-Alternativa: botão de menu no header → Dialog "Backup & Restauração". Vou pela seção visível na rota Cadastrar para ficar acessível com 1 toque.
+2. **Filtro rápido "Somente alertas"**
+   - Toggle/checkbox ao lado do seletor de ordenação que mostra apenas produtos com status `baixo` ou `zerado`.
 
-### Exportar
-- Lê `supreme:produtos` e `supreme:movimentacoes` do localStorage
-- Gera JSON:
-  ```json
-  {
-    "app": "supreme-multimarcas",
-    "version": 1,
-    "exported_at": "2026-05-09T...",
-    "produtos": [...],
-    "movimentacoes": [...]
-  }
-  ```
-- Faz download via `Blob` + `<a download>` com nome `supreme-backup-YYYY-MM-DD.json`
-- Toast de sucesso
+3. **Contador de alertas no topo da aba**
+   - Pequeno badge HUD ao lado do título mostrando "X alertas" (clicável para ativar o filtro "Somente alertas").
 
-### Restaurar
-- Input `<input type="file" accept="application/json">` escondido + botão visual
-- Lê arquivo via `FileReader`, faz `JSON.parse`
-- Validação com **zod** (mesmos schemas de Produto/Movimentação) para rejeitar arquivos inválidos
-- Verifica `app === "supreme-multimarcas"`
-- **AlertDialog de confirmação** antes de aplicar, mostrando: nº de produtos e movimentações que serão importados, avisando que dados atuais serão substituídos
-- Opção: **Substituir** (default) ou **Mesclar** (merge por `id`, novos itens adicionados, conflitos prevalece o backup)
-- Após confirmar: grava no localStorage e dispara evento custom `supreme:storage-changed` para o `useInventory` recarregar (ou simplesmente `window.location.reload()` para garantir estado limpo)
-- Toast de sucesso com contagem importada
+4. **Manter visual Cyber-luxe HUD**
+   - Usar os tokens existentes (`hud-card`, cores `primary`/gold, tipografia uppercase).
+   - Sem mexer em lógica de estoque, cadastro ou movimentação.
 
-### Arquivos
-- `src/lib/backup.ts` — `exportBackup()`, `parseBackup(text)`, `applyBackup(data, mode)`, schemas zod
-- `src/components/BackupSection.tsx` — UI com os dois botões + AlertDialog
-- Atualizar `src/routes/cadastrar.tsx` para incluir `<BackupSection />` abaixo do formulário
-- `src/hooks/useInventory.ts` — escutar evento `supreme:storage-changed` para recarregar estado
+## Arquivos afetados
+- `src/components/Filters.tsx` — adicionar props `sort`, `setSort`, `onlyAlerts`, `setOnlyAlerts` + novos controles.
+- `src/routes/produtos.tsx` — estado de ordenação/alertas, lógica de sort/filter, contador no header.
 
-### Detalhes UX
-- Ícones lucide: `Download` (exportar), `Upload` (restaurar)
-- Texto explicativo curto: "Salve seus dados em um arquivo para transferir para outro celular."
-- Mensagens de erro amigáveis: "Arquivo inválido", "Backup de outro app", etc.
-- Tudo em PT-BR
+## Fora do escopo
+- Não altero schema, storage, nem o card do produto.
+- Não mexo em outras rotas.
 
-### Fora do escopo
-- Backup automático agendado
-- Sincronização em nuvem (precisaria de Lovable Cloud)
+Posso seguir?
