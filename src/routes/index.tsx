@@ -40,10 +40,10 @@ function Dashboard() {
       <header className="flex flex-col gap-3 border-b border-primary/20 pb-5 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="font-display text-4xl uppercase tracking-tight text-[oklch(0.88_0.13_85)] md:text-5xl">
-            Dashboard <span className="font-light text-primary/40">v2.4</span>
+            Painel da Loja
           </h1>
           <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.25em] text-primary/60">
-            Supreme Multimarcas · Resumo Operacional
+            Supreme Multimarcas · Visão geral do estoque
           </p>
         </div>
         <div className="flex items-center gap-2 self-start rounded-full border border-primary/30 bg-card px-4 py-2 md:self-auto">
@@ -52,7 +52,7 @@ function Dashboard() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[oklch(0.88_0.13_85)] shadow-[0_0_8px_oklch(0.88_0.13_85)]" />
           </span>
           <span className="text-[10px] font-bold uppercase italic tracking-tight text-[oklch(0.88_0.13_85)]">
-            Sessão Ativa
+            Loja Aberta
           </span>
         </div>
       </header>
