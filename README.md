@@ -1,199 +1,325 @@
-# Supreme Multimarcas
+# Suprema Multimarcas
 
-Sistema de gestão de estoque para loja multimarcas de streetwear, com visual **Cyber-luxe HUD** — interface escura, acentos dourados e tipografia moderna que transmite sofisticação e controle total sobre o inventário.
+Sistema de gerenciamento de estoque para lojas multimarcas de streetwear, desenvolvido com foco em performance, controle visual e experiência premium.
 
-![Dashboard](https://storage.googleapis.com/gpt-engineer-file-uploads/0a0ad0a3-8b99-4cf4-a3aa-4796a85c5b4f/tool-images/1d94e892-b182-4a02-9fec-df1d996caeb6.png)
+O projeto utiliza uma identidade visual **Cyber-Luxe HUD**, combinando interface escura, detalhes dourados e tipografia moderna para transmitir sofisticação e controle total sobre o inventário.
 
 ---
+
+# Painel da Loja
+
+Dashboard com métricas inteligentes e monitoramento em tempo real do estoque.
+
+## Funcionalidades do Dashboard
+
+* Métricas em tempo real:
+
+  * Estoque total
+  * SKUs ativos
+  * Valor em ativos
+  * Margem potencial
+
+* Alertas automáticos:
+
+  * Produtos zerados
+  * Estoque baixo
+
+* Indicador de ocupação do estoque
+
+* Badge de “Loja Aberta” com status ativo
+
+* Interface responsiva e moderna
+
+---
+
+# Catálogo de Produtos
+
+Gerenciamento completo do inventário.
+
+## Recursos
+
+### Busca e Filtros
+
+* Busca textual por nome
+* Filtro por categoria
+* Filtro por marca
+
+### Categorias disponíveis
+
+* Camisetas
+* Moletons
+* Calças
+* Shorts
+* Tênis
+* Bonés
+* Acessórios
+
+### Ordenação
+
+* Alertas primeiro
+* Menor estoque
+* Maior estoque
+* Nome A–Z
+* Mais recentes
+
+### Alertas Inteligentes
+
+* Filtro rápido “Somente alertas”
+* Badge clicável de produtos críticos
+
+---
+
+# Movimentação de Estoque
+
+Sistema rápido e intuitivo para entradas e saídas.
 
 ## Funcionalidades
 
-### Painel da Loja (Dashboard)
-- **Métricas em tempo real**: Estoque total, SKUs ativos, valor em ativos e margem potencial
-- **Alertas de ruptura**: Destaque visual imediato para produtos zerados ou com estoque baixo
-- **Indicador de ocupação**: Barra de progresso mostrando capacidade do estoque
-- Badge "Loja Aberta" com pulso de status ativo
+* Formulário inline no próprio card do produto
+* Sem uso de modais
+* Alternância entre:
 
-### Catálogo de Produtos
-- **Busca textual** por nome
-- **Filtros**: Categoria (Camisetas, Moletons, Calças, Shorts, Tênis, Bonés, Acessórios) e Marca
-- **Ordenação**: Alertas primeiro, menor estoque, maior estoque, nome A–Z, mais recentes
-- **Filtro rápido "Somente alertas"**: isola produtos com estoque baixo/zerado
-- **Badge de alertas** clicável no topo da página
+  * Entrada
+  * Saída
 
-### Movimentação Rápida
-- Formulário inline no card do produto (sem modal)
-- Toggle entre **Entrada** (fornecedor/devolução) e **Saída** (venda/perda)
-- Campo de quantidade + seleção de motivo
-- Ação em um clique com ícone de raio
+### Motivos disponíveis
 
-### Cadastro
-- Formulário completo para novos produtos: nome, marca, categoria, cor, tamanho, quantidade, preços e estoque mínimo
+* Venda
 
-### Movimentações
-- Histórico completo de todas as entradas e saídas
-- Detalhes por produto, tipo, quantidade, motivo e data
+* Devolução
 
-### Backup
-- Exportação e importação de dados em JSON
+* Perda
+
+* Fornecedor
+
+* Atualização instantânea do estoque
+
+* Histórico completo de movimentações
 
 ---
 
-## Tecnologias
+# Cadastro de Produtos
 
-| Tecnologia | Versão | Uso |
-|------------|--------|-----|
-| [TanStack Start](https://tanstack.com/start) | v1 | Framework full-stack com SSR/SSG |
-| [React](https://react.dev) | 19 | UI library |
-| [TypeScript](https://www.typescriptlang.org) | 5.8 | Tipagem estática |
-| [Tailwind CSS](https://tailwindcss.com) | v4 | Estilização utility-first |
-| [shadcn/ui](https://ui.shadcn.com) | — | Componentes de interface (Radix + Tailwind) |
-| [TanStack Query](https://tanstack.com/query) | v5 | Cache e estado assíncrono |
-| [TanStack Router](https://tanstack.com/router) | v1 | Roteamento type-safe |
-| [Recharts](https://recharts.org) | v2 | Gráficos (preparado para futuro dashboard de vendas) |
-| [Lucide React](https://lucide.dev) | v0.575 | Ícones |
-| [Zod](https://zod.dev) | v3 | Validação de schemas |
+Formulário completo para criação de novos itens.
 
-### Design System
-- **Paleta**: Gold Noir — fundo escuro (#0a0a1a / #141432) com acentos dourados (oklch 0.74 0.13 78)
-- **Tipografia**: Space Grotesk (títulos, display) + DM Sans (corpo, UI)
-- **Layout**: Bento Grid — cards assimétricos em grid responsivo
-- **Estilo**: HUD cyber-luxo com bordas sutis, glows dourados, tracking amplo e uppercase técnico
+## Campos disponíveis
+
+* Nome
+* Marca
+* Categoria
+* Cor
+* Tamanho
+* Quantidade
+* Preço de custo
+* Preço de venda
+* Estoque mínimo
 
 ---
 
-## Estrutura de Pastas
+# Histórico de Movimentações
 
-```
-src/
-├── components/           # Componentes reutilizáveis
-│   ├── ui/              # shadcn/ui (Button, Input, Select, Dialog...)
-│   ├── Header.tsx       # Navegação principal com logo e alertas
-│   ├── MetricCard.tsx   # Cards de métricas do dashboard
-│   ├── ProductCard.tsx  # Card de produto com movimentação inline
-│   ├── ProductForm.tsx  # Formulário de cadastro de produto
-│   ├── Filters.tsx      # Filtros e ordenação do catálogo
-│   ├── Footer.tsx       # Rodapé
-│   ├── BottomNav.tsx    # Navegação mobile (bottom sheet)
-│   ├── BackupSection.tsx # Export/import JSON
-│   └── MovementDialog.tsx # [legado] movimentação via modal
-├── routes/              # Rotas do TanStack Router (file-based)
-│   ├── __root.tsx       # Layout raiz
-│   ├── index.tsx        # / — Dashboard (Painel da Loja)
-│   ├── produtos.tsx     # /produtos — Catálogo
-│   ├── cadastrar.tsx    # /cadastrar — Novo produto
-│   └── movimentacoes.tsx # /movimentacoes — Histórico
-├── hooks/
-│   └── useInventory.ts  # Hook central de estado do estoque
-├── lib/
-│   ├── types.ts         # Types, enums e funções de domínio
-│   ├── storage.ts       # Persistência local (localStorage)
-│   ├── backup.ts        # Lógica de export/import JSON
-│   ├── utils.ts         # Utilitários (cn, formatters)
-│   └── error-*.ts       # Captura e tratamento de erros
-├── styles.css           # Tokens de design system (variáveis CSS oklch)
-├── router.tsx           # Configuração do router
-└── start.ts             # Entry point do TanStack Start
-```
+Registro detalhado de todas as operações.
+
+## Informações registradas
+
+* Produto
+* Tipo da movimentação
+* Quantidade
+* Motivo
+* Data e horário
 
 ---
 
-## Como Executar
+# Backup e Segurança
+
+## Recursos
+
+* Exportação de dados em JSON
+* Importação de backup
+* Persistência local via localStorage
+
+---
+
+# Tecnologias Utilizadas
+
+| Tecnologia      | Versão | Finalidade           |
+| --------------- | ------ | -------------------- |
+| TanStack Start  | v1     | Framework Full Stack |
+| React           | 19     | Interface do usuário |
+| TypeScript      | 5.8    | Tipagem estática     |
+| Tailwind CSS    | v4     | Estilização          |
+| shadcn/ui       | —      | Componentes UI       |
+| TanStack Query  | v5     | Cache e estado       |
+| TanStack Router | v1     | Rotas type-safe      |
+| Recharts        | v2     | Gráficos             |
+| Lucide React    | v0.575 | Ícones               |
+| Zod             | v3     | Validação            |
+
+---
+
+# Sistema de Design
+
+## Identidade Visual
+
+* Tema: Gold Noir
+* Interface escura com acentos dourados
+* Estética Cyber-Luxe HUD
+
+## Tipografia
+
+* Space Grotesk
+* DM Sans
+
+## Layout
+
+* Bento Grid responsivo
+* Cartões assimétricos
+* Bordas suaves
+* Glow dourado
+
+---
+
+# Estrutura do Projeto
 
 ```bash
-# Instalar dependências
+src/
+├── components/
+├── routes/
+├── hooks/
+├── lib/
+├── styles.css
+├── router.tsx
+└── start.ts
+```
+
+---
+
+# Como Executar
+
+## Instalar dependências
+
+```bash
 bun install
+```
 
-# Servidor de desenvolvimento
+## Rodar ambiente de desenvolvimento
+
+```bash
 bun dev
+```
 
-# Build de produção
+## Build de produção
+
+```bash
 bun run build
+```
 
-# Preview do build
+## Preview da build
+
+```bash
 bun run preview
+```
 
-# Lint e formatação
+## Lint
+
+```bash
 bun run lint
+```
+
+## Formatação
+
+```bash
 bun run format
 ```
 
-O app roda por padrão em `http://localhost:3000`.
+O projeto roda em:
+
+```bash
+http://localhost:3000
+```
 
 ---
 
-## Arquitetura de Estado
+# Arquitetura de Estado
 
-O estoque é gerenciado via hook customizado `useInventory` que:
-- Armazena produtos e movimentações no `localStorage`
-- Fornece operações CRUD de produtos
-- Registra movimentações com validação de saldo
-- Expõe contadores de alertas e métricas derivadas
+O gerenciamento de estoque é feito através de um hook customizado:
 
-**Fluxo de movimentação:**
-1. Usuário seleciona tipo (entrada/saída) no card do produto
-2. Informa quantidade e motivo
-3. `registrarMovimentacao` atualiza a quantidade do produto
-4. Movimentação é salva no histórico com timestamp ISO
-5. UI reativa reflete a mudança imediatamente
+```ts
+useInventory
+```
+
+## Responsabilidades
+
+* CRUD de produtos
+* Controle de estoque
+* Histórico de movimentações
+* Persistência local
+* Métricas derivadas
+* Sistema de alertas
 
 ---
 
-## Modelo de Dados
+# Modelo de Dados
 
-```typescript
+## Produto
+
+```ts
 interface Produto {
   id: string;
   nome: string;
   marca: string;
-  categoria: "Camisetas" | "Moletons" | "Calças" | "Shorts" | "Tênis" | "Bonés" | "Acessórios";
+  categoria: string;
   cor: string;
   tamanho: string;
   quantidade: number;
   preco_custo: number;
   preco_venda: number;
   estoque_minimo: number;
-  criado_em: string; // ISO 8601
+  criado_em: string;
 }
+```
 
+## Movimentação
+
+```ts
 interface Movimentacao {
   id: string;
   produto_id: string;
   produto_nome: string;
   tipo: "entrada" | "saida";
   quantidade: number;
-  motivo: "venda" | "devolucao" | "perda" | "fornecedor";
-  data: string; // ISO 8601
+  motivo: string;
+  data: string;
 }
 ```
 
-**Status de estoque:**
-- `zerado` — quantidade === 0 (crítico, vermelho)
-- `baixo` — quantidade <= estoque_minimo (alerta, dourado)
-- `ok` — quantidade > estoque_minimo (normal)
+---
+
+# Status de Estoque
+
+| Status | Condição                     |
+| ------ | ---------------------------- |
+| Zerado | quantidade === 0             |
+| Baixo  | quantidade <= estoque_minimo |
+| OK     | quantidade > estoque_minimo  |
 
 ---
 
-## Roadmap
+# Roadmap
 
-1. [x] Dashboard com métricas e alertas
-2. [x] Catálogo com filtros, busca e ordenação
-3. [x] Movimentação inline nos cards
-4. [ ] Auth (login da loja) via Lovable Cloud
-5. [ ] Imagens nos produtos
-6. [ ] Gráficos de vendas (semanal/mensal por categoria)
-7. [ ] Categorias e marcas editáveis
-8. [ ] Código de barras + busca por scan
-9. [ ] Backup automático (cloud)
-
----
-
-## Licença
-
-Projeto privado — Supreme Multimarcas.
+* Dashboard avançado de vendas
+* Login/autenticação
+* Upload de imagens
+* Relatórios inteligentes
+* Gráficos semanais e mensais
+* Categorias editáveis
+* Scanner de código de barras
+* Backup em nuvem
+* Integração com ERP
+* Multiusuário
 
 ---
 
-<p align="center">
-  <sub>Cyber-luxe HUD · Gold Noir · Bento Grid</sub>
-</p>
+# Licença
+
+Projeto privado — Suprema Multimarcas.
