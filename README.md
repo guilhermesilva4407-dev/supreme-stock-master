@@ -1,4 +1,4 @@
-# Suprema Multimarcas
+# Supreme Multimarcas
 
 Sistema de gerenciamento de estoque para lojas multimarcas de streetwear, desenvolvido com foco em performance, controle visual e experiência premium.
 
