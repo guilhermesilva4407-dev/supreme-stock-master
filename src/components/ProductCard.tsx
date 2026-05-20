@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Minus, Pencil, Plus, Trash2, Zap } from "lucide-react";
+import { Minus, Pencil, Plus, ShoppingBag, Trash2, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,21 @@ export function ProductCard({
     }
   };
 
+  const handleSellOne = () => {
+    if (produto.quantidade < 1) {
+      toast.error("Produto sem estoque");
+      return;
+    }
+    try {
+      onMove({ produto_id: produto.id, tipo: "saida", quantidade: 1, motivo: "venda" });
+      toast.success(`Venda registrada · ${produto.nome}`, {
+        description: `1 un. · R$${produto.preco_venda.toFixed(2)}`,
+      });
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  };
+
   return (
     <Card className={alerta ? "border-primary" : undefined}>
       <CardContent className="flex flex-col gap-3 p-4">
@@ -74,11 +89,20 @@ export function ProductCard({
             <p className="font-display text-lg">R${produto.preco_venda.toFixed(0)}</p>
           </div>
         </div>
+        {/* One-click sale */}
+        <Button
+          onClick={handleSellOne}
+          disabled={produto.quantidade < 1}
+          className="h-11 w-full gap-2 bg-gradient-to-r from-primary to-[oklch(0.82_0.13_82)] text-sm font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-[0_0_20px_-6px_oklch(0.74_0.13_78/0.6)] hover:opacity-95 disabled:opacity-40"
+        >
+          <ShoppingBag className="h-4 w-4" />
+          Vender 1 un.
+        </Button>
         {/* Quick movement form */}
         <div className="rounded-md border border-primary/20 bg-secondary/40 p-2">
           <div className="mb-2 flex items-center justify-between">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/70">
-              Movimentação rápida
+              Outras movimentações
             </span>
             <div className="flex overflow-hidden rounded-md border border-primary/30">
               <button
