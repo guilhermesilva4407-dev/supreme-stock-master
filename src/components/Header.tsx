@@ -17,7 +17,7 @@ export function Header() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center md:h-12 md:w-12">
+          <div className="flex h-12 w-32 items-center justify-center md:h-16 md:w-44">
             <img src={logo} alt="Supreme Multimarcas" className="h-full w-full object-contain drop-shadow-[0_0_8px_oklch(0.74_0.13_78/0.5)]" />
           </div>
           <span className="sr-only">Supreme Multimarcas</span>
