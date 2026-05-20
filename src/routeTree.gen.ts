@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as MovimentacoesRouteImport } from './routes/movimentacoes'
+import { Route as ControleRouteImport } from './routes/controle'
 import { Route as CadastrarRouteImport } from './routes/cadastrar'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const ProdutosRoute = ProdutosRouteImport.update({
 const MovimentacoesRoute = MovimentacoesRouteImport.update({
   id: '/movimentacoes',
   path: '/movimentacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ControleRoute = ControleRouteImport.update({
+  id: '/controle',
+  path: '/controle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CadastrarRoute = CadastrarRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastrar': typeof CadastrarRoute
+  '/controle': typeof ControleRoute
   '/movimentacoes': typeof MovimentacoesRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastrar': typeof CadastrarRoute
+  '/controle': typeof ControleRoute
   '/movimentacoes': typeof MovimentacoesRoute
   '/produtos': typeof ProdutosRoute
 }
@@ -51,20 +59,28 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cadastrar': typeof CadastrarRoute
+  '/controle': typeof ControleRoute
   '/movimentacoes': typeof MovimentacoesRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cadastrar' | '/movimentacoes' | '/produtos'
+  fullPaths: '/' | '/cadastrar' | '/controle' | '/movimentacoes' | '/produtos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cadastrar' | '/movimentacoes' | '/produtos'
-  id: '__root__' | '/' | '/cadastrar' | '/movimentacoes' | '/produtos'
+  to: '/' | '/cadastrar' | '/controle' | '/movimentacoes' | '/produtos'
+  id:
+    | '__root__'
+    | '/'
+    | '/cadastrar'
+    | '/controle'
+    | '/movimentacoes'
+    | '/produtos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastrarRoute: typeof CadastrarRoute
+  ControleRoute: typeof ControleRoute
   MovimentacoesRoute: typeof MovimentacoesRoute
   ProdutosRoute: typeof ProdutosRoute
 }
@@ -83,6 +99,13 @@ declare module '@tanstack/react-router' {
       path: '/movimentacoes'
       fullPath: '/movimentacoes'
       preLoaderRoute: typeof MovimentacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/controle': {
+      id: '/controle'
+      path: '/controle'
+      fullPath: '/controle'
+      preLoaderRoute: typeof ControleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cadastrar': {
@@ -105,6 +128,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastrarRoute: CadastrarRoute,
+  ControleRoute: ControleRoute,
   MovimentacoesRoute: MovimentacoesRoute,
   ProdutosRoute: ProdutosRoute,
 }
