@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Boxes, Package, TrendingUp, BarChart3, ArrowUpRight } from "lucide-react";
+import { BarChart3, ArrowUpRight } from "lucide-react";
 import { useInventory } from "@/hooks/useInventory";
-import { MetricCard } from "@/components/MetricCard";
 import { getStockStatus } from "@/lib/types";
 
 export const Route = createFileRoute("/")({
@@ -14,25 +13,12 @@ export const Route = createFileRoute("/")({
   component: Dashboard,
 });
 
-function brl(n: number) {
-  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
-
 function Dashboard() {
   const { produtos, ready } = useInventory();
 
   if (!ready) return <p className="text-muted-foreground">Carregando...</p>;
 
-  const totalUnidades = produtos.reduce((s, p) => s + p.quantidade, 0);
-  const totalProdutos = produtos.length;
-  const valorEstoque = produtos.reduce((s, p) => s + p.quantidade * p.preco_custo, 0);
-  const margem = produtos.reduce(
-    (s, p) => s + p.quantidade * (p.preco_venda - p.preco_custo),
-    0,
-  );
   const alertas = produtos.filter((p) => p.quantidade <= p.estoque_minimo);
-  const capacidade = produtos.reduce((s, p) => s + Math.max(p.estoque_minimo * 3, 10), 0);
-  const ocupacao = capacidade > 0 ? (totalUnidades / capacidade) * 100 : 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -59,57 +45,48 @@ function Dashboard() {
 
       {/* Bento Grid */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-6">
-        <div className="md:col-span-2">
-          <MetricCard
-            label="Estoque Total"
-            value={String(totalUnidades).padStart(2, "0")}
-            suffix="UN"
-            icon={Boxes}
-            progress={ocupacao}
-          />
-        </div>
-        <div className="md:col-span-2">
-          <MetricCard
-            label="Categorias Ativas"
-            value={String(totalProdutos).padStart(2, "0")}
-            suffix="SKUs"
-            icon={Package}
-          />
-        </div>
-
-        {/* Featured Gold Card */}
-        <div className="relative flex flex-col justify-between overflow-hidden rounded-lg bg-gradient-to-br from-primary to-[oklch(0.82_0.13_82)] p-6 text-primary-foreground shadow-[0_0_40px_-10px_oklch(0.74_0.13_78/0.5)] md:col-span-2 lg:row-span-2">
+        {/* Controle Detalhado — entry card */}
+        <Link
+          to="/controle"
+          className="hud-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all hover:border-[oklch(0.88_0.13_85)]/60 md:col-span-4 lg:col-span-6"
+        >
           <div
-            className="pointer-events-none absolute inset-0 opacity-20"
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
             style={{
-              backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
-              backgroundSize: "10px 10px",
+              backgroundImage:
+                "linear-gradient(oklch(0.88 0.13 85) 1px, transparent 1px), linear-gradient(90deg, oklch(0.88 0.13 85) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
             }}
           />
-          <div className="relative">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-70">
-              Valor em Ativos
-            </span>
-            <div className="mt-2">
-              <span className="text-xs font-bold">BRL</span>
-              <div className="mt-1 font-display text-4xl italic leading-none lg:text-5xl">
-                {valorEstoque.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="rounded border border-primary/40 bg-background/60 p-3">
+                <BarChart3 className="h-6 w-6 text-[oklch(0.88_0.13_85)]" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-1 bg-[oklch(0.88_0.13_85)]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60">
+                    Análise Avançada
+                  </span>
+                </div>
+                <h3 className="mt-1 font-display text-2xl uppercase tracking-tight text-foreground md:text-3xl">
+                  Controle Detalhado do Estoque
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground md:text-sm">
+                  Veja breakdown por categoria, marca, status e valor total em uma aba ampliada.
+                </p>
               </div>
             </div>
-          </div>
-          <div className="relative mt-8 flex items-end justify-between gap-4">
-            <div>
-              <div className="text-[10px] font-bold uppercase opacity-60">Margem Potencial</div>
-              <div className="font-display text-xl">{brl(margem)}</div>
-            </div>
-            <div className="rounded-sm bg-background p-2">
-              <TrendingUp className="h-6 w-6 text-[oklch(0.88_0.13_85)]" />
+            <div className="flex items-center gap-2 self-start rounded-full border border-primary/40 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primary transition-all group-hover:border-[oklch(0.88_0.13_85)] group-hover:text-[oklch(0.88_0.13_85)] md:self-auto">
+              Abrir painel
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Alerts wide block */}
-        <div className="hud-card relative overflow-hidden p-6 md:col-span-4">
+        <div className="hud-card relative overflow-hidden p-6 md:col-span-4 lg:col-span-6">
           <div className="mb-5 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="h-4 w-1 bg-[oklch(0.88_0.13_85)]" />
@@ -171,46 +148,6 @@ function Dashboard() {
             Ver inventário completo →
           </Link>
         </div>
-
-        {/* Controle Detalhado — entry card */}
-        <Link
-          to="/controle"
-          className="hud-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all hover:border-[oklch(0.88_0.13_85)]/60 md:col-span-4 lg:col-span-6"
-        >
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage:
-                "linear-gradient(oklch(0.88 0.13 85) 1px, transparent 1px), linear-gradient(90deg, oklch(0.88 0.13 85) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
-          <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-start gap-4">
-              <div className="rounded border border-primary/40 bg-background/60 p-3">
-                <BarChart3 className="h-6 w-6 text-[oklch(0.88_0.13_85)]" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-1 bg-[oklch(0.88_0.13_85)]" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60">
-                    Análise Avançada
-                  </span>
-                </div>
-                <h3 className="mt-1 font-display text-2xl uppercase tracking-tight text-foreground md:text-3xl">
-                  Controle Detalhado do Estoque
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground md:text-sm">
-                  Veja breakdown por categoria, marca, status e valor total em uma aba ampliada.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 self-start rounded-full border border-primary/40 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primary transition-all group-hover:border-[oklch(0.88_0.13_85)] group-hover:text-[oklch(0.88_0.13_85)] md:self-auto">
-              Abrir painel
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </div>
-          </div>
-        </Link>
       </div>
 
       {/* Decorative footer line */}
