@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Boxes, Package, TrendingUp } from "lucide-react";
+import { Boxes, Package, TrendingUp, BarChart3, ArrowUpRight } from "lucide-react";
 import { useInventory } from "@/hooks/useInventory";
 import { MetricCard } from "@/components/MetricCard";
 import { getStockStatus } from "@/lib/types";
@@ -171,6 +171,46 @@ function Dashboard() {
             Ver inventário completo →
           </Link>
         </div>
+
+        {/* Controle Detalhado — entry card */}
+        <Link
+          to="/controle"
+          className="hud-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all hover:border-[oklch(0.88_0.13_85)]/60 md:col-span-4 lg:col-span-6"
+        >
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                "linear-gradient(oklch(0.88 0.13 85) 1px, transparent 1px), linear-gradient(90deg, oklch(0.88 0.13 85) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          />
+          <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="rounded border border-primary/40 bg-background/60 p-3">
+                <BarChart3 className="h-6 w-6 text-[oklch(0.88_0.13_85)]" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-1 bg-[oklch(0.88_0.13_85)]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60">
+                    Análise Avançada
+                  </span>
+                </div>
+                <h3 className="mt-1 font-display text-2xl uppercase tracking-tight text-foreground md:text-3xl">
+                  Controle Detalhado do Estoque
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground md:text-sm">
+                  Veja breakdown por categoria, marca, status e valor total em uma aba ampliada.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-start rounded-full border border-primary/40 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primary transition-all group-hover:border-[oklch(0.88_0.13_85)] group-hover:text-[oklch(0.88_0.13_85)] md:self-auto">
+              Abrir painel
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
+          </div>
+        </Link>
       </div>
 
       {/* Decorative footer line */}
